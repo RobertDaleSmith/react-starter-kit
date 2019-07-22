@@ -12,7 +12,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
+import { createPath } from 'history';
 import { addLocaleData } from 'react-intl';
 // This is so bad: requiring all locale if they are not needed?
 /* @intl-code-template import ${lang} from 'react-intl/locale-data/${lang}'; */
