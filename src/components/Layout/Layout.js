@@ -1,14 +1,18 @@
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
+// external-global styles must be imported in your JS.
+import normalizeCss from 'normalize.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -31,4 +35,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(s)(Layout);
+export default withStyles(normalizeCss, s)(Layout);

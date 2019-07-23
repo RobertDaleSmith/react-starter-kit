@@ -7,7 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Profile.css';
 
@@ -21,7 +22,10 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { title, me: { username, email } } = this.props;
+    const {
+      title,
+      me: { username, email },
+    } = this.props;
     return (
       <div className={s.root}>
         <div className={s.container}>

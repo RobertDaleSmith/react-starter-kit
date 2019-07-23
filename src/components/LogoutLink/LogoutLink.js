@@ -7,16 +7,23 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import s from './LogoutLink.css';
 
-const LogoutLink = ({ className, logout, children }) => ( // eslint-disable-line no-shadow
-  <button className={cx(className, s.root)} onClick={logout}>{children}</button>
+const LogoutLink = ({ className, logout: onClick, children }) => (
+  <button className={cx(className, s.root)} onClick={onClick} type="button">
+    {children}
+  </button>
 );
+
+LogoutLink.defaultProps = {
+  className: '',
+};
 
 LogoutLink.propTypes = {
   className: PropTypes.string,
@@ -24,4 +31,7 @@ LogoutLink.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default connect(null, { logout })(withStyles(s)(LogoutLink));
+export default connect(
+  null,
+  { logout },
+)(withStyles(s)(LogoutLink));

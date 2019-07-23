@@ -10,38 +10,38 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Profile from './Profile';
-import fetch from '../../core/fetch';
 
 const title = 'Profile';
 
-export default {
+async function action({ fetch, store }) {
+  const { auth } = store.getState();
+  if (!auth.user.id) {
+    return { redirect: '/login' };
+  }
 
-  path: '/profile',
+  const resp = await fetch('/graphql', {
+    method: 'post',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: '{me{username,email}}',
+    }),
+    credentials: 'include',
+  });
+  const { data } = await resp.json();
 
-  async action({ store }) {
-    const { auth } = store.getState();
-    if (!auth.user.id) {
-      return { redirect: '/login' };
-    }
+  if (!data || !data.me) throw new Error('Failed to load.');
 
-    const resp = await fetch('/graphql', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: '{me{username,email}}',
-      }),
-      credentials: 'include',
-    });
-    const { data } = await resp.json();
-    if (!data || !data.me) throw new Error('Failed to load.');
+  return {
+    title,
+    component: (
+      <Layout>
+        <Profile title={title} me={data.me} />
+      </Layout>
+    ),
+  };
+}
 
-    return {
-      title,
-      component: <Layout><Profile title={title} me={data.me} /></Layout>,
-    };
-  },
-
-};
+export default action;

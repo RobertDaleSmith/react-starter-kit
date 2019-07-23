@@ -5,7 +5,8 @@ https://disqus.com/admin/create/
 #### `DisqusThread.js`
 
 ```js
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const SHORTNAME = 'example';
 const WEBSITE_URL = 'http://www.example.com';
@@ -17,22 +18,23 @@ function renderDisqus() {
     script.src = 'https://' + SHORTNAME + '.disqus.com/embed.js';
     document.getElementsByTagName('head')[0].appendChild(script);
   } else {
-    window.DISQUS.reset({reload: true});
+    window.DISQUS.reset({ reload: true });
   }
 }
 
-class DisqusThread extends React.Component{
-
+class DisqusThread extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
   };
 
   shouldComponentUpdate(nextProps) {
-    return this.props.id !== nextProps.id ||
+    return (
+      this.props.id !== nextProps.id ||
       this.props.title !== nextProps.title ||
-      this.props.path !== nextProps.path;
+      this.props.path !== nextProps.path
+    );
   }
 
   componentDidMount() {
@@ -44,7 +46,7 @@ class DisqusThread extends React.Component{
   }
 
   render() {
-    let { id, title, path, ...other} = this.props;
+    let { id, title, path, ...other } = this.props;
 
     if (process.env.BROWSER) {
       window.disqus_shortname = SHORTNAME;
@@ -55,7 +57,6 @@ class DisqusThread extends React.Component{
 
     return <div {...other} id="disqus_thread" />;
   }
-
 }
 
 export default DisqusThread;
@@ -67,18 +68,18 @@ export default DisqusThread;
 import React from 'react';
 import DisqusThread from './DisqusThread.js';
 
-class MyComponent extends React.Component{
-
+class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        <DisqusThread id="e94d73ff-fd92-467d-b643-c86889f4b8be"
-                      title="How to integrate Disqus into ReactJS App"
-                      path="/blog/123-disquss-integration" />
+        <DisqusThread
+          id="e94d73ff-fd92-467d-b643-c86889f4b8be"
+          title="How to integrate Disqus into ReactJS App"
+          path="/blog/123-disquss-integration"
+        />
       </div>
     );
   }
-
 }
 
 export default MyComponent;

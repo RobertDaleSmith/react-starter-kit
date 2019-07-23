@@ -42,14 +42,20 @@ const signup = {
     const errors = [];
 
     if (password.length < 8) {
-      errors.push({ key: 'password', message: 'Password must be at least 8 characters long' });
+      errors.push({
+        key: 'password',
+        message: 'Password must be at least 8 characters long',
+      });
     }
 
     // check to see if there's already a user with that email
     const count = await User.count({ where: { email } });
 
     if (count > 0) {
-      errors.push({ key: 'email', message: 'User with this email already exists' });
+      errors.push({
+        key: 'email',
+        message: 'User with this email already exists',
+      });
     }
 
     if (errors.length === 0) {
@@ -59,7 +65,9 @@ const signup = {
         password: User.generateHash(password),
       });
 
-      token = jwt.sign({ id: user.id }, auth.jwt.secret, { expiresIn: auth.jwt.expires });
+      token = jwt.sign({ id: user.id }, auth.jwt.secret, {
+        expiresIn: auth.jwt.expires,
+      });
 
       user = await User.findOne({
         where: { email },

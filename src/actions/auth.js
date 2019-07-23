@@ -8,14 +8,18 @@
  */
 
 import {
-  SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
-  LOGOUT_REQUEST, LOGOUT_SUCCESS,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
 } from '../constants/auth';
-import { auth } from '../config';
-import history from '../core/history';
+import history from '../history';
 
-const maxAge = auth.jwt.expires;
+const maxAge = 60 * 60 * 24 * 180; // 180 days;
 
 /**
  * Sign up actions
@@ -59,7 +63,10 @@ export function signup(username, email, password) {
         }
       `);
 
-      const { data: { user, token }, errors } = data.signup;
+      const {
+        data: { user, token },
+        errors,
+      } = data.signup;
 
       if (errors.length > 0) {
         dispatch(signupFailure(errors));
@@ -126,7 +133,10 @@ export function login(usernameOrEmail, password) {
         }
       `);
 
-      const { data: { user, token }, errors } = data.login;
+      const {
+        data: { user, token },
+        errors,
+      } = data.login;
 
       if (errors.length > 0) {
         dispatch(loginFailure(errors));
@@ -167,7 +177,7 @@ function logoutSuccess() {
 }
 
 export function logout() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(logoutRequest());
     document.cookie = 'id_token=;path=/;max-age=-1';
     dispatch(logoutSuccess());

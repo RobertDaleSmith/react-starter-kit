@@ -1,7 +1,7 @@
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -43,9 +43,10 @@ const parseContent = (path, fileContent, extension) => {
 };
 
 const readFile = Promise.promisify(fs.readFile);
-const fileExists = filename => new Promise(resolve => {
-  fs.exists(filename, resolve);
-});
+const fileExists = filename =>
+  new Promise(resolve => {
+    fs.exists(filename, resolve);
+  });
 
 async function resolveExtension(path, extension) {
   let fileNameBase = join(CONTENT_DIR, `${path === '/' ? '/index' : path}`);
@@ -73,6 +74,7 @@ async function resolveFileName(path) {
 
   for (let i = 0; i < extensions.length; i += 1) {
     const extension = extensions[i];
+    // eslint-disable-next-line no-await-in-loop
     const maybeFileName = await resolveExtension(path, extension);
     if (maybeFileName.success) {
       return { success: true, fileName: maybeFileName.fileName, extension };
@@ -87,7 +89,7 @@ const content = {
   args: {
     path: { type: new NonNull(StringType) },
   },
-  async resolve({ request }, { path }) {
+  async resolve(req, { path }) {
     const { success, fileName, extension } = await resolveFileName(path);
     if (!success) {
       return null;

@@ -47,7 +47,9 @@ const login = {
     });
 
     if (user && user.comparePassword(password)) {
-      token = jwt.sign({ id: user.id }, auth.jwt.secret, { expiresIn: auth.jwt.expires });
+      token = jwt.sign({ id: user.id }, auth.jwt.secret, {
+        expiresIn: auth.jwt.expires,
+      });
     } else {
       errors.push({ key: 'general', message: 'Invalid credentials' });
     }
@@ -66,8 +68,18 @@ const login = {
 
 const me = {
   type: UserType,
-  resolve() {
-    return User.findById(1);
+  resolve(obj) {
+    const { user } = obj.request;
+
+    // Throw error if user is not authenticated
+    if (!user) {
+      return null;
+    }
+
+    // Find logged in user from database
+    return User.findOne({
+      where: { id: user.id },
+    });
   },
 };
 

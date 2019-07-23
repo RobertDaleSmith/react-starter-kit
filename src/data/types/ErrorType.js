@@ -14,12 +14,14 @@ import {
   GraphQLNonNull as NonNull,
 } from 'graphql';
 
-const ErrorType = new List(new ObjectType({
-  name: 'Error',
-  fields: {
-    key: { type: new NonNull(StringType) },
-    message: { type: StringType },
-  },
-}));
+const ErrorType = new List(
+  new ObjectType({
+    name: 'Error',
+    fields: {
+      key: { type: new NonNull(StringType) },
+      message: { type: StringType },
+    },
+  }),
+);
 
 export default ErrorType;
