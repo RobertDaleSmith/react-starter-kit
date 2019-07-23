@@ -7,15 +7,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import { combineReducers } from 'redux';
-import user from './user';
-import runtime from './runtime';
-import intl from './intl';
-import auth from './auth';
+@import '../../components/variables.css';
 
-export default combineReducers({
-  auth,
-  user,
-  runtime,
-  intl,
-});
+.root {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: var(--max-content-width);
+}

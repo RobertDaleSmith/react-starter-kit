@@ -36,7 +36,7 @@ const readFile = Promise.promisify(fs.readFile);
 
 export const resolvers = {
   RootQuery: {
-    async intl(parent, { locale }) {
+    async intl(obj, { locale }) {
       if (!locales.includes(locale)) {
         throw new Error(`Locale '${locale}' not supported`);
       }

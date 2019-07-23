@@ -14,6 +14,7 @@ const sequelize = new Sequelize(config.databaseUrl, {
   operatorsAliases: Op,
   define: {
     freezeTableName: true,
+    timestamps: false,
   },
 });
 

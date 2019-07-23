@@ -40,6 +40,10 @@ const routes = {
       load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
     },
     {
+      path: '/profile',
+      load: () => import(/* webpackChunkName: 'profile' */ './profile'),
+    },
+    {
       path: '/admin',
       load: () => import(/* webpackChunkName: 'admin' */ './admin'),
     },
@@ -56,7 +60,7 @@ const routes = {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title ? `${route.title} - ` : ''}TechsBox.com`;
     route.description = route.description || '';
 
     return route;

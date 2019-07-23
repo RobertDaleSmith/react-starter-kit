@@ -108,26 +108,17 @@ app.use((err, req, res, next) => {
 
 app.use(passport.initialize());
 
-app.get(
-  '/login/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email', 'user_location'],
-    session: false,
-  }),
-);
-app.get(
-  '/login/facebook/return',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false,
-  }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
-  },
-);
+app.use((req, res, next) => {
+  const token = req.cookies['id_token']; // eslint-disable-line dot-notation
+  if (token) {
+    try {
+      req.user = jwt.verify(token, config.auth.jwt.secret); // eslint-disable-line no-param-reassign
+    } catch (e) {
+      console.log(e); // eslint-disable-line no-console
+    }
+  }
+  next();
+});
 
 //
 // Register API middleware
@@ -165,13 +156,19 @@ app.get('*', async (req, res, next) => {
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
       cookie: req.headers.cookie,
+      user: req.user,
       apolloClient,
       schema,
       graphql,
     });
 
     const initialState = {
-      user: req.user || null,
+      auth: {
+        isFetching: false,
+        user: req.user || {},
+        token: req.cookies.id_token || null,
+        errors: [],
+      },
     };
 
     const store = configureStore(initialState, {

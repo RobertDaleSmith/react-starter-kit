@@ -20,7 +20,12 @@ const messages = defineMessages({
   },
 });
 
-function action({ intl }) {
+function action({ intl, store }) {
+  const { auth } = store.getState();
+  if (auth.user.id) {
+    return { redirect: '/profile' };
+  }
+
   const title = intl.formatMessage(messages.title);
   return {
     chunks: ['login'],

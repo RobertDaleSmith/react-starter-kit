@@ -13,7 +13,12 @@ import Register from './Register';
 
 const title = 'New User Registration';
 
-function action() {
+function action({ store }) {
+  const { auth } = store.getState();
+  if (auth.user.id) {
+    return { redirect: '/profile' };
+  }
+
   return {
     chunks: ['register'],
     title,

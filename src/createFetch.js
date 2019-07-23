@@ -28,7 +28,7 @@ type Options = {
  */
 function createFetch(
   fetch: Fetch,
-  { baseUrl, cookie, schema, graphql }: Options,
+  { baseUrl, cookie, user, schema, graphql }: Options,
 ) {
   // NOTE: Tweak the default options to suite your application needs
   const defaults = {
@@ -50,7 +50,7 @@ function createFetch(
       const result = await graphql(
         schema,
         query.query,
-        { request: {} }, // fill in request vars needed by graphql
+        { request: { user } }, // fill in request vars needed by graphql
         null,
         query.variables,
       );

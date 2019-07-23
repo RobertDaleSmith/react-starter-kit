@@ -12,10 +12,10 @@ import Layout from '../../components/Layout';
 import Admin from './Admin';
 
 const title = 'Admin Page';
-const isAdmin = false;
 
-function action() {
-  if (!isAdmin) {
+function action({ store }) {
+  const { auth } = store.getState();
+  if (!auth.user.id) {
     return { redirect: '/login' };
   }
 
