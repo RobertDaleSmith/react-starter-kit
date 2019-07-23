@@ -3,6 +3,7 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLString as StringType,
 } from 'graphql';
+import { Op } from 'sequelize';
 import jwt from 'jsonwebtoken';
 import UserType from '../types/UserType';
 import ErrorType from '../types/ErrorType';
@@ -42,7 +43,10 @@ const login = {
     const usernameOrEmailLC = usernameOrEmail.toLowerCase();
     const user = await User.findOne({
       where: {
-        $or: [{ username: usernameOrEmailLC }, { email: usernameOrEmailLC }],
+        [Op.or]: [
+          { username: usernameOrEmailLC },
+          { email: usernameOrEmailLC },
+        ],
       },
     });
 

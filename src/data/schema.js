@@ -14,7 +14,6 @@ import {
 
 // Queries
 import userQuery from './queries/user';
-import content from './queries/content';
 import news from './queries/news';
 
 // Mutations
@@ -25,7 +24,6 @@ const schema = new Schema({
     name: 'Query',
     fields: {
       ...userQuery,
-      content,
       news,
     },
   }),

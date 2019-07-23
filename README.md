@@ -24,7 +24,7 @@ and newcomers to the industry.
 ### Getting Started
 
 - Follow the [getting started guide](./docs/getting-started.md) to download and run the project
-  ([Node.js](https://nodejs.org/) >= 6.5)
+  ([Node.js](https://nodejs.org/) >= 6.9)
 - Check the [code recipes](./docs/recipes) used in this boilerplate, or share yours
 
 ### Customization
@@ -42,6 +42,8 @@ branches that you can use either as a reference or merge into your project:
 - [feature/react-intl](https://github.com/kriasoft/react-starter-kit/tree/feature/react-intl) ([PR](https://github.com/kriasoft/react-starter-kit/pull/1135))
   — isomorphic Redux and React Intl by [Pavel Lang](https://github.com/langpavel)
   (see [how to integrate React Intl](./docs/recipes/how-to-integrate-react-intl.md)) (based on `feature/apollo`)
+- [feature/apollo-pure](https://github.com/kriasoft/react-starter-kit/tree/feature/apollo-pure) ([PR](https://github.com/kriasoft/react-starter-kit/pull/1664))
+  — bare Apollo codebase by [piglovesyou](https://github.com/piglovesyou) (based on `master`)
 
 You can see status of most reasonable merge combination as [PRs labeled as `TRACKING`](https://github.com/kriasoft/react-starter-kit/labels/TRACKING)
 
@@ -178,7 +180,7 @@ expenses via [OpenCollective](https://opencollective.com/react-starter-kit) or
 
 Anyone and everyone is welcome to [contribute](CONTRIBUTING.md) to this project. The best way to
 start is by checking our [open issues](https://github.com/kriasoft/react-starter-kit/issues),
-[submit a new issues](https://github.com/kriasoft/react-starter-kit/issues/new?labels=bug) or
+[submit a new issue](https://github.com/kriasoft/react-starter-kit/issues/new?labels=bug) or
 [feature request](https://github.com/kriasoft/react-starter-kit/issues/new?labels=enhancement),
 participate in discussions, upvote or downvote the issues you like or dislike, send [pull
 requests](CONTRIBUTING.md#pull-requests).
