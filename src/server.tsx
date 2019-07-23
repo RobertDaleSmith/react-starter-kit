@@ -218,7 +218,12 @@ app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
       app={{}}
       title="Internal Server Error"
       description={err.message}
-      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
+      styles={[
+        {
+          id: 'css',
+          cssText: errorPageStyle._getCss(), // eslint-disable-line no-underscore-dangle
+        },
+      ]}
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,
